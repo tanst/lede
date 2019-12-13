@@ -14,7 +14,7 @@ on:
     branches: 
       - master
   schedule:
-      - cron: 0 16 * * *
+      - cron: 0 3 * * *
   release:
       types: [published]
 
@@ -100,10 +100,10 @@ jobs:
           EOF
           
           # 设置固件大小:
-          cat >> .config <<EOF
-          CONFIG_TARGET_KERNEL_PARTSIZE=30
-          CONFIG_TARGET_ROOTFS_PARTSIZE=400
-          EOF
+          # cat >> .config <<EOF
+          # CONFIG_TARGET_KERNEL_PARTSIZE=30
+          # CONFIG_TARGET_ROOTFS_PARTSIZE=400
+          # EOF
 
           # 固件压缩:
           cat >> .config <<EOF
