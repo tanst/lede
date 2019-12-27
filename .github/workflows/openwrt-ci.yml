@@ -34,6 +34,7 @@ jobs:
 
       - name: 改名测试
         run: |
+          mkdir -p ./artifact/
           echo 123 > ./artifact/123.txt
 
       - name: Upload artifact
