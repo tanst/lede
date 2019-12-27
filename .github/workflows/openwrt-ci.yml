@@ -40,5 +40,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with:
-          name: ${{ env.FILENAME }}
+          name: ${{ echo "OpenWrt-firmware-`TZ=Asia/Shanghai && date '+%Y-%m-%d-%H%M%S'`" }}
           path: ./artifact/
