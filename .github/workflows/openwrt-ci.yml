@@ -29,6 +29,7 @@ jobs:
         uses: actions/checkout@master
         env:
           TIME: TZ=Asia/Shanghai && date '+%Y-%m-%d-%H%M%S'
+          FILENAME: echo "OpenWrt-firmware-`TZ=Asia/Shanghai && date '+%Y-%m-%d-%H%M%S'`"
         with:
           ref: master
 
@@ -36,9 +37,8 @@ jobs:
         run: |
           mkdir -p ./artifact/
           echo 123 > ./artifact/123.txt
-
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with:
-          name: OpenWrt-firmware-${{ env.TIME }}
+          name: ${{ env.FILENAME }}
           path: ./artifact/
