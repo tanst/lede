@@ -7,7 +7,7 @@
 # <https://github.com/KFERMercer/OpenWrt-CI>
 # 
 
-name: 改名测试
+name: OpenWrt-CI
 
 on: 
   release:
@@ -27,6 +27,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
+        env:
+          TIME: ${{ TZ='Asia/Shanghai' date '+%Y-%m-%d-%H%M%S' }}
         with:
           ref: master
 
@@ -37,5 +39,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with:
-          name: OpenWrt-firmware-${{ TZ='Asia/Shanghai' date '+%Y-%m-%d-%H%M%S' }}
+          name: OpenWrt-firmware-${{ env.TIME }}
           path: ./artifact/
