@@ -28,7 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
         env:
-          TIME: ${{ TZ='Asia/Shanghai' date '+%Y-%m-%d-%H%M%S' }}
+          TIME: ${{ export TZ=Asia/Shanghai && date '+%Y-%m-%d-%H%M%S' }}
         with:
           ref: master
 
