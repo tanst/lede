@@ -1,22 +1,11 @@
-#
-# This is free software, lisence use MIT.
-# 
-# Copyright (C) 2019 P3TERX <https://p3terx.com>
-# Copyright (C) 2019 KFERMercer <KFER.Mercer@gmail.com>
-# 
-# <https://github.com/KFERMercer/OpenWrt-CI>
-# 
-
-name: OpenWrt-CI
+name: 测试
 
 on: 
-  release:
-    types: [published]
   push:
     branches: 
       - master
 #  schedule:
-#    - cron: 0 8 * * 5
+#    - cron: 0 22 * * 1
 #  watch:
 #    types: [started]
 
@@ -25,18 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
-        with:
-          ref: master
+    - name: 校验本地文件
+      uses: actions/checkout@master
 
-      - name: 改名测试
-        run: |
-          mkdir -p ./artifact/
-          echo 123 > ./artifact/123.txt
-          echo "::set-env name=FILENAME::$(echo "OpenWrt-firmware-`date -d "+8 hour" +%Y%m%d-%H%M%S`")"
-      - name: Upload artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: ${{ env.FILENAME }}
-          path: ./artifact/
+    - name: SSH connection to Actions
+      uses: P3TERX/debugger-action@master
