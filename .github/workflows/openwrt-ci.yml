@@ -56,8 +56,7 @@ jobs:
         git clone https://github.com/siryle1213/luci-app-fileassistant openwrt/package/luci-app-fileassistant
         git clone https://github.com/vernesong/OpenClash openwrt/package/tmp
         mv openwrt/package/tmp/luci-app-openclash openwrt/package
-#    - name: SSH connection to Actions
-#      uses: P3TERX/debugger-action@master
+
 
     - name: 更新 feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -65,14 +64,9 @@ jobs:
     - name: 升级 feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    - name: 导入自定义配置
-      run: |
-        [ -e files ] && mv files openwrt/files
-        [ -e .config ] && mv .config openwrt/.config
-        cd openwrt      
-        echo '修改网关地址'
-        sed -i 's/192.168.1.1/10.10.10.10/g' package/base-files/files/bin/config_generate
-        make defconfig
+     
+    - name: SSH connection to Actions
+      uses: tanst/debugger-action@master
 
     - name: 下载编译所需源码
       run: |
@@ -100,4 +94,3 @@ jobs:
       with:
         name: ${{ env.FILENAME }}
         path: ./openwrt/artifact/
-
