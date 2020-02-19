@@ -51,11 +51,11 @@ jobs:
         REPO_BRANCH: master
       run: git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
 
-    - name: 克隆增强功能源代码
-      run: |
-        git clone https://github.com/siryle1213/luci-app-fileassistant openwrt/package/luci-app-fileassistant
-        git clone https://github.com/vernesong/OpenClash openwrt/package/tmp
-        mv openwrt/package/tmp/luci-app-openclash openwrt/package
+#    - name: 克隆增强功能源代码
+#      run: |
+#        git clone https://github.com/siryle1213/luci-app-fileassistant openwrt/package/luci-app-fileassistant
+#        git clone https://github.com/vernesong/OpenClash openwrt/package/tmp
+#        mv openwrt/package/tmp/luci-app-openclash openwrt/package
 
     - name: 更新 feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -64,7 +64,7 @@ jobs:
       run: cd openwrt && ./scripts/feeds install -a
 
     - name: SSH 连接
-      uses: P3TERX/debugger-action@master
+      uses: tanst/debugger-action@master
 
     - name: 导入自定义配置
       run: |
@@ -91,8 +91,11 @@ jobs:
         mkdir -p ./artifact/
         find ./bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
         find ./bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
-        echo "::set-env name=FILENAME::$(echo "OpenWrt-firmware-x86-`date -d "+8 hour" +%Y%m%d-%H%M%S`")"
-        
+        echo "::set-env name=FILENAME::$(echo "OpenWrt-firmware-`date -d "+8 hour" +%Y%m%d-%H%M%S`")"
+
+    - name: SSH 连接
+      uses: tanst/debugger-action@master
+
     - name: 上传固件
       uses: actions/upload-artifact@master
       with:
