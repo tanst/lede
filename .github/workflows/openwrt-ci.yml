@@ -53,16 +53,6 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
 
-    - name: 增加开机设置脚本
-      run: |
-        cd openwrt
-        echo '增加开机设置脚本'
-        cat << 'EOF' > files/etc/rc.local
-        # Put your custom commands here that should be executed once
-        # the system init finished. By default this file does nothing.
-        sleep 20 && /mnt/sda3/setup.sh
-        exit 0
-        EOF
 
     - name: 导入自定义配置
       run: |
@@ -155,6 +145,7 @@ jobs:
         CONFIG_PACKAGE_luci-app-fileassistant=y
         CONFIG_PACKAGE_luci-app-mwan3=y
         CONFIG_PACKAGE_luci-app-hd-idle=y
+        CONFIG_PACKAGE_luci-app-syncdial=y
         EOF
         
         # LuCI主题:
