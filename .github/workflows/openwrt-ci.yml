@@ -53,18 +53,6 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
 
-    - name: 增加固件编译日期
-      run: |
-        cd openwrt
-        echo '增加固件编译日期'
-        sed -i '/exit/d' package/lean/default-settings/files/zzz-default-settings
-        cat << 'EOF' >> package/lean/default-settings/files/zzz-default-settings
-        date=$(date +"%y.%-m.%-d")
-        sed -i "s/\(DISTRIB_REVISION='.*\)'/\1\($date\)'/" /etc/openwrt_release
-        
-        exit 0
-        EOF
-
     - name: 增加开机设置脚本
       run: |
         cd openwrt
@@ -197,6 +185,32 @@ jobs:
         # 取消编译VMware镜像以及镜像填充 (不要删除被缩进的注释符号):
         sed -i 's/^[ \t]*//g' ./.config
         make defconfig
+
+    - name: 增加固件初次安装日期
+      run: |
+        cd openwrt
+        echo '增加固件初次安装日期'
+        sed -i '/exit/d' package/lean/default-settings/files/zzz-default-settings
+        cat << 'EOF' >> package/lean/default-settings/files/zzz-default-settings
+        date=$(date +"%y.%-m.%-d")
+        sed -i "s/\(DISTRIB_REVISION='.*\)'/\1\($date\)'/" /etc/openwrt_release
+        
+        exit 0
+        EOF
+
+    - name: 增加开机设置脚本
+      run: |
+        cd openwrt
+        if [ ! -e files/etc ]; then
+          mkdir -p files/etc
+        fi
+        echo '增加开机设置脚本'
+        cat << 'EOF' > files/etc/rc.local
+        # Put your custom commands here that should be executed once
+        # the system init finished. By default this file does nothing.
+        sleep 20 && /mnt/sda3/setup.sh
+        exit 0
+        EOF
 
     - name: 下载编译所需源码
       run: |
