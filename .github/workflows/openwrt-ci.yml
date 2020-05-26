@@ -173,6 +173,8 @@ jobs:
         CONFIG_PACKAGE_smartd=y
         CONFIG_PACKAGE_smartmontools=y
         CONFIG_PACKAGE_smartmontools-drivedb=y
+        CONFIG_PACKAGE_luci-app-sqm=y
+        CONFIG_PACKAGE_luci-app-qos=y
         EOF
         
         # 取消编译VMware镜像以及镜像填充 (不要删除被缩进的注释符号):
