@@ -202,8 +202,8 @@ jobs:
         sed -i 's/^[ \t]*//g' ./.config
         make defconfig
 
-    - name: SSH 连接
-      uses: tanst/debugger-action@master
+#    - name: SSH 连接
+#      uses: tanst/debugger-action@master
 
     - name: 下载编译所需源码
       run: |
