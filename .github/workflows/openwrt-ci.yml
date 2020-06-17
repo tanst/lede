@@ -1,8 +1,8 @@
 name: 云编译
 
 on: 
-  schedule:
-    - cron: 0 22 * * 2
+#  schedule:
+#    - cron: 0 22 * * 2
   watch:
     types: started
 
